@@ -25,7 +25,7 @@ public class ConcertRepository {
         }
     }
 
-    public List<Concert> getBands() {
+    public List<Concert> getConcerts() {
         return mBands;
     }
 

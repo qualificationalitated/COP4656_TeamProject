@@ -1,15 +1,15 @@
 package com.cop4656.concerttickets;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 
 import java.util.List;
 
@@ -65,29 +65,62 @@ public class ListConcertFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        LinearLayout layout = (LinearLayout) rootView;
+        View.OnClickListener onClickListener = itemView -> {
 
-        List<Concert> bandList = ConcertRepository.getInstance(requireContext()).getBands();
-        for (Concert band : bandList) {
-            Button button = new Button(getContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 0, 0, 10);   // 10px bottom margin
-            button.setLayoutParams(layoutParams);
+            // Create fragment arguments containing the selected band ID
+            int selectedBandId = (int) itemView.getTag();
+            Bundle args = new Bundle();
+            args.putInt(DetailConcertFragment.ARG_CONCERT_ID, selectedBandId);
 
-            // Display band's name on button
-            button.setText(band.getName());
+            // Replace list with details
+            Navigation.findNavController(itemView).navigate(R.id.show_item_detail, args);
+        };
 
-            // Navigate to detail screen when clicked
-            button.setOnClickListener(buttonView -> {
-                Navigation.findNavController(buttonView).navigate(R.id.show_item_detail);
-            });
-
-            // Add button to the LinearLayout
-            layout.addView(button);
-        }
+        // Send bands to RecyclerView
+        RecyclerView recyclerView = rootView.findViewById(R.id.band_list);
+        List<Concert> bands = ConcertRepository.getInstance(requireContext()).getConcerts();
+        recyclerView.setAdapter(new ConcertAdapter(bands, onClickListener));
 
         return rootView;
+    }
+    private class ConcertAdapter extends RecyclerView.Adapter<ConcertHolder> {
+
+        private final List<Concert> mConcerts;
+        private final View.OnClickListener mOnClickListener;
+
+        public ConcertAdapter(List<Concert> concerts, View.OnClickListener onClickListener) {
+            mConcerts = concerts;
+            mOnClickListener = onClickListener;
+        }
+        @NonNull
+        @Override
+        public ConcertHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            return new ConcertHolder(layoutInflater, parent);
+        }
+        public void onBindViewHolder(ConcertHolder holder, int position) {
+            Concert band = mConcerts.get(position);
+            holder.bind(band);
+            holder.itemView.setTag(band.getId());
+            holder.itemView.setOnClickListener(mOnClickListener);
+        }
+        @Override
+        public int getItemCount() {
+            return mConcerts.size();
+        }
+    }
+
+    private static class ConcertHolder extends RecyclerView.ViewHolder {
+
+        private final TextView mNameTextView;
+
+        public ConcertHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_concert, parent, false));
+            mNameTextView = itemView.findViewById(R.id.concert_name);
+        }
+
+        public void bind(Concert band) {
+            mNameTextView.setText(band.getName());
+        }
     }
 }

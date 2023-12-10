@@ -5,12 +5,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="bandListName">
+    <style name="concertListName">
         <item name="android:textSize">26sp</item>
         <item name="android:padding">8dp</item>
     </style>
 
-    <style name="bandName">
+    <style name="concertName">
         <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">30dp</item>

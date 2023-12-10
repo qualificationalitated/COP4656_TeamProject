@@ -16,6 +16,8 @@ import android.widget.TextView;
  */
 public class DetailConcertFragment extends Fragment {
 
+    public static final String ARG_CONCERT_ID = "concert_id";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,6 +55,11 @@ public class DetailConcertFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int concertID = 1;
+        // Get the band ID from the fragment arguments
+        Bundle args = getArguments();
+        if (args != null) {
+            concertID = args.getInt(ARG_CONCERT_ID);
+        }
 
         mConcert = ConcertRepository.getInstance(requireContext()).getConcert(concertID);
         if (getArguments() != null) {
@@ -67,10 +74,11 @@ public class DetailConcertFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_detail_concert, container, false);
         if (mConcert != null) {
-            TextView nameTextView = rootView.findViewById(R.id.band_name);
+            // 여기서 fragment 페이지 관리
+            TextView nameTextView = rootView.findViewById(R.id.concert_name);
             nameTextView.setText(mConcert.getName());
 
-            TextView descriptionTextView = rootView.findViewById(R.id.band_description);
+            TextView descriptionTextView = rootView.findViewById(R.id.concert_description);
             descriptionTextView.setText(mConcert.getDescription());
         }
         return rootView;
