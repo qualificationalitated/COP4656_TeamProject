@@ -1,0 +1,93 @@
+package com.cop4656.concerttickets;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import java.util.List;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ListConcertFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ListConcertFragment extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public ListConcertFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ListFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ListConcertFragment newInstance(String param1, String param2) {
+        ListConcertFragment fragment = new ListConcertFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        LinearLayout layout = (LinearLayout) rootView;
+
+        List<Concert> bandList = ConcertRepository.getInstance(requireContext()).getBands();
+        for (Concert band : bandList) {
+            Button button = new Button(getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 0, 10);   // 10px bottom margin
+            button.setLayoutParams(layoutParams);
+
+            // Display band's name on button
+            button.setText(band.getName());
+
+            // Navigate to detail screen when clicked
+            button.setOnClickListener(buttonView -> {
+                Navigation.findNavController(buttonView).navigate(R.id.show_item_detail);
+            });
+
+            // Add button to the LinearLayout
+            layout.addView(button);
+        }
+
+        return rootView;
+    }
+}
