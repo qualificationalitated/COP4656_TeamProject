@@ -4,17 +4,25 @@
     <string name="details">Details</string>
 
     <string-array name="concerts_array">
-        <item>N/A</item>
-        <item>ULTRA</item>
-        <item>RAVE</item>
-        <item>COP4656FINALPRESENTATION</item>
+        <item>BTS</item>
+        <item>ARCTIC MONKEYS</item>
+        <item>BAD BUNNY</item>
+        <item>DRAKE</item>
+        <item>ATEEZ</item>
+        <item>THE NEIGHBOURHOOD</item>
+        <item>KALI UCHIS</item>
+        <item>J COLE</item>
     </string-array>
 
     <string-array name="descriptions">
-        <item>item 1</item>
-        <item>item 2</item>
-        <item>item 3</item>
-        <item>item 4</item>
+       <item>A South Korean boy band formed by HYBE Entertainment in 2010 consisting of 7 members.</item>
+        <item>An English rock band formed in Sheffield in 2002 consisting of 4 members.</item>
+        <item>A Puerto Rican rapper and singer known as the "King of Latin Trap".</item>
+        <item>A Canadian rapper and singer.</item>
+        <item>A South Korean boy band formed by KQ Entertainment consisting of 8 members.</item>
+        <item>An American pop rock band formed in 2011 consisting of 4 members .</item>
+        <item>An American singer and songwriter.</item>
+        <item>An American rapper and record producer.</item>
     </string-array>
 
 </resources>
