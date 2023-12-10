@@ -90,10 +90,10 @@ public class TicketRegister extends AppCompatActivity {
         // paymentType.check(R.id.radio_card);
         paymentType.setOnClickListener(v -> {
 
-            if(paymentType.getCheckedRadioButtonId() == R.id.radio_cash){
+           /* if(paymentType.getCheckedRadioButtonId() == R.id.radio_cash){
                 payment_type = "Cash";
-            }
-            else if(paymentType.getCheckedRadioButtonId() == R.id.radio_card){
+            }*/
+            if(paymentType.getCheckedRadioButtonId() == R.id.radio_card){
                 payment_type = "Card";
             }
             else{
