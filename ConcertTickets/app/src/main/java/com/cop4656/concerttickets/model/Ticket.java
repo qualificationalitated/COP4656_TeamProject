@@ -29,23 +29,28 @@ public class Ticket {
 
     @NonNull
     @ColumnInfo(name = "tickets")
-    private int mTickets;
+    private String mTickets;
 
     @NonNull
     @ColumnInfo(name = "disabled")
     private boolean mDisabled;
+
+    @NonNull
+    @ColumnInfo(name = "paymentType")
+    private String mPaymentType;
 
     @ColumnInfo(name = "concert_id")
     private long mConcertId;
 
 
     public Ticket(@NonNull String name, @NonNull String email, @NonNull String phoneNumber,
-                  @NonNull int tickets, @NonNull boolean disabled) {
+                  @NonNull String tickets, @NonNull boolean disabled, @NonNull String paymentType) {
         mName = name;
         mEmail = email;
         mPhoneNumber = phoneNumber;
         mTickets = tickets;
         mDisabled = disabled;
+        mPaymentType = paymentType;
     }
 
     public long getId() {
@@ -62,6 +67,14 @@ public class Ticket {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public String getPaymentType() {
+        return mPaymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        mPaymentType = paymentType;
     }
 
     public String getEmail() {
@@ -81,11 +94,11 @@ public class Ticket {
         mPhoneNumber = phoneNumber;
     }
 
-    public int getTickets() {
+    public String getTickets() {
         return mTickets;
     }
 
-    public void setTickets(int tickets) {
+    public void setTickets(String tickets) {
         mTickets = tickets;
     }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class ConcertRepository {
     private static ConcertRepository instance;
-    private List<Concert> mBands;
+    private List<Concert> mConcerts;
 
     public static ConcertRepository getInstance(Context context) {
         if (instance == null) {
@@ -16,21 +16,21 @@ public class ConcertRepository {
     }
 
     private ConcertRepository(Context context) {
-        mBands = new ArrayList<>();
+        mConcerts = new ArrayList<>();
         Resources res = context.getResources();
-        String[] bands = res.getStringArray(R.array.concerts);
+        String[] bands = res.getStringArray(R.array.concerts_array);
         String[] descriptions = res.getStringArray(R.array.descriptions);
         for (int i = 0; i < bands.length; i++) {
-            mBands.add(new Concert(i + 1, bands[i], descriptions[i]));
+            mConcerts.add(new Concert(i + 1, bands[i], descriptions[i]));
         }
     }
 
     public List<Concert> getConcerts() {
-        return mBands;
+        return mConcerts;
     }
 
     public Concert getConcert(int bandId) {
-        for (Concert band : mBands) {
+        for (Concert band : mConcerts) {
             if (band.getId() == bandId) {
                 return band;
             }

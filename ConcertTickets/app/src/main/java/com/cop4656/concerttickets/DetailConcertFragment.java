@@ -1,5 +1,6 @@
 package com.cop4656.concerttickets;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -74,12 +76,20 @@ public class DetailConcertFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_detail_concert, container, false);
         if (mConcert != null) {
-            // 여기서 fragment 페이지 관리
             TextView nameTextView = rootView.findViewById(R.id.concert_name);
             nameTextView.setText(mConcert.getName());
 
             TextView descriptionTextView = rootView.findViewById(R.id.concert_description);
             descriptionTextView.setText(mConcert.getDescription());
+
+            Button registerButton = rootView.findViewById(R.id.button_register);
+            registerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(requireContext(), TicketRegister.class);
+                    startActivity(intent);
+                }
+            });
         }
         return rootView;
     }

@@ -11,6 +11,8 @@ public interface ConcertDao {
     @Query("SELECT * FROM Concert WHERE id = :id")
     Concert getConcert(long id);
 
+    @Query("SELECT * FROM Concert WHERE title = :title")
+    Concert getFromTitle(String title);
 
     @Query("SELECT * FROM Concert ORDER BY title COLLATE NOCASE")
     List<Concert> getConcerts();

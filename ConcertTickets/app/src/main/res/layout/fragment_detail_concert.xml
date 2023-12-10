@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailConcertFragment">
@@ -15,10 +14,20 @@
 
     <TextView
         android:id="@+id/concert_description"
+        style="@style/concertDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/concertDescription"
-        tools:text="description"/>
+        android:layout_below="@+id/concert_name"
+        tools:text="description" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="Register"
+        android:layout_marginBottom="30dp"
+        style="@style/buttonStyle"/>
 
+</RelativeLayout>

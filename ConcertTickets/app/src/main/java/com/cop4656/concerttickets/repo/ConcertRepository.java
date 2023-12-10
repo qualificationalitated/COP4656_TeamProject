@@ -17,6 +17,8 @@ public class ConcertRepository {
 
     private final TicketDao mTicketDao;
 
+
+
     public static ConcertRepository getInstance(Context context) {
         if (mConcertRepo == null) {
             mConcertRepo = new ConcertRepository(context);
@@ -33,7 +35,9 @@ public class ConcertRepository {
         mTicketDao = database.ticketDao();
 
 
-        addStarterData();
+        if(mConcertDao.getConcerts().isEmpty()){
+            addStarterData();
+        }
     }
     private void addStarterData() {
 
@@ -41,9 +45,9 @@ public class ConcertRepository {
         long concertId  = mConcertDao.addConcert(concert);
 
 
-        Ticket ticket1 = new Ticket("Jake", "Jake@gmail.com", "548202834", 5, false);
-        Ticket ticket2 = new Ticket("kyla", "Kyla@gmail.com", "4280670293", 5, false);
-        Ticket ticket3 = new Ticket("Houston", "Houston@gmail.com", "305867245", 5, false);
+        Ticket ticket1 = new Ticket("Jake", "Jake@gmail.com", "548202834", "5", false, "Mobile");
+        Ticket ticket2 = new Ticket("kyla", "Kyla@gmail.com", "4280670293", "5", false, "Mobile");
+        Ticket ticket3 = new Ticket("Houston", "Houston@gmail.com", "305867245", "5", false, "Mobile");
         ticket1.setConcertId(concertId);
         ticket2.setConcertId(concertId);
         ticket3.setConcertId(concertId);
@@ -79,5 +83,9 @@ public class ConcertRepository {
 
     public List<Ticket> getTickets() {
         return mTicketDao.getTickets();
+    }
+
+    public Concert getFromTitle(String title) {
+        return mConcertDao.getFromTitle(title);
     }
 }
