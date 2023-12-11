@@ -1,6 +1,7 @@
 package com.cop4656.concerttickets;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,9 +55,12 @@ public class TicketRegister extends AppCompatActivity {
                 Ticket ticket = new Ticket(name.getText().toString(), email.getText().toString(), phoneNumber.getText().toString(), ticketCount.getText().toString(), disabled, payment_type);
 
                 ticket.setConcertId(concert.getId());
-                concertRepo.addTicket(ticket);
+
+                // Perform database update in background
+                new AddTicketTask().execute(ticket);
             }
         });
+
 
         // Spinner
         //concerts = findViewById(R.id.breed_text_view);
@@ -68,10 +73,12 @@ public class TicketRegister extends AppCompatActivity {
         concerts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Handle item selection if needed
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // Handle item selection if needed
             }
         });
 
@@ -80,8 +87,7 @@ public class TicketRegister extends AppCompatActivity {
         isDisabled = findViewById(R.id.isDisabled);
         isDisabled.setChecked(false);
         isDisabled.setOnClickListener(view -> {
-            // checked
-            // not checked
+            // check disability
             disabled = ((CompoundButton) view).isChecked();
         });
 
@@ -108,14 +114,17 @@ public class TicketRegister extends AppCompatActivity {
         name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle before text changed
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle on text changed
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // Handle after text changed
             }
         });
 
@@ -124,14 +133,17 @@ public class TicketRegister extends AppCompatActivity {
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle before text changed
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle on text changed
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // Handle after text changed
             }
         });
 
@@ -140,14 +152,17 @@ public class TicketRegister extends AppCompatActivity {
         phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle before text changed
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle on text changed
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // Handle after text changed
             }
         });
 
@@ -156,22 +171,41 @@ public class TicketRegister extends AppCompatActivity {
         ticketCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle before text changed
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Handle on text changed
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // Handle after text changed
             }
         });
 
 
     }
-
     public void onBackClick(View view){
         Intent i = new Intent(TicketRegister.this,MainActivity.class);
         startActivity(i);
+    }
+
+    private class AddTicketTask extends AsyncTask<Ticket, Void, Void> {
+        @Override
+        protected Void doInBackground(Ticket... tickets) {
+            // Perform database update in background
+            concertRepo.addTicket(tickets[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // You can perform any UI updates or notifications after the database update completes
+            // For example, show a Toast message indicating success
+            Toast.makeText(TicketRegister.this, "Ticket added successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 }
