@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.cop4656.concerttickets.model.Concert;
+import com.cop4656.concerttickets.repo.ConcertRepository;
+
 import java.util.List;
 
 import java.util.List;
@@ -78,8 +82,8 @@ public class ListConcertFragment extends Fragment {
 
         // Send bands to RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.band_list);
-        List<Concert> bands = ConcertRepository.getInstance(requireContext()).getConcerts();
-        recyclerView.setAdapter(new ConcertAdapter(bands, onClickListener));
+        List<Concert> concerts = ConcertRepository.getInstance(requireContext()).getConcerts();
+        recyclerView.setAdapter(new ConcertAdapter(concerts, onClickListener));
 
         return rootView;
     }
@@ -99,9 +103,9 @@ public class ListConcertFragment extends Fragment {
             return new ConcertHolder(layoutInflater, parent);
         }
         public void onBindViewHolder(ConcertHolder holder, int position) {
-            Concert band = mConcerts.get(position);
-            holder.bind(band);
-            holder.itemView.setTag(band.getId());
+            Concert concert = mConcerts.get(position);
+            holder.bind(concert);
+            holder.itemView.setTag(concert.getId());
             holder.itemView.setOnClickListener(mOnClickListener);
         }
         @Override
@@ -120,7 +124,7 @@ public class ListConcertFragment extends Fragment {
         }
 
         public void bind(Concert band) {
-            mNameTextView.setText(band.getName());
+            mNameTextView.setText(band.getTitle());
         }
     }
 }

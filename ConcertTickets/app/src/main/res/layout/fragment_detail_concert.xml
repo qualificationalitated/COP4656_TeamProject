@@ -10,15 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/concertName"
-        tools:text="Concert Name"/>
-
+        tools:text="concert name"/>
     <TextView
-        android:id="@+id/concert_description"
+        android:id="@+id/concert_artist"
         style="@style/concertDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/concert_name"
-        tools:text="Description" />
+        tools:text="artist" />
+    <TextView
+        android:id="@+id/concert_location"
+        style="@style/concertDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/concert_artist"
+        tools:text="location" />
+    <TextView
+        android:id="@+id/concert_cost"
+        style="@style/concertDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/concert_location"
+        tools:text="cost" />
+
+
 
     <Button
         android:id="@+id/button_register"
@@ -31,3 +46,4 @@
         style="@style/buttonStyle"/>
 
 </RelativeLayout>
+

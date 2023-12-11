@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cop4656.concerttickets.model.Concert;
+import com.cop4656.concerttickets.repo.ConcertRepository;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetailConcertFragment#newInstance} factory method to
@@ -76,11 +79,21 @@ public class DetailConcertFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_detail_concert, container, false);
         if (mConcert != null) {
+            // name
             TextView nameTextView = rootView.findViewById(R.id.concert_name);
-            nameTextView.setText(mConcert.getName());
+            nameTextView.setText(mConcert.getTitle());
 
-            TextView descriptionTextView = rootView.findViewById(R.id.concert_description);
-            descriptionTextView.setText(mConcert.getDescription());
+            // artist
+            TextView artistTextView = rootView.findViewById(R.id.concert_artist);
+            artistTextView.setText(mConcert.getArtists());
+
+            // location
+            TextView locationTextView = rootView.findViewById(R.id.concert_location);
+            locationTextView.setText(mConcert.getLocation());
+
+            // cost
+            TextView costTextView = rootView.findViewById(R.id.concert_cost);
+            costTextView.setText((int) mConcert.getTicketCost());
 
             Button registerButton = rootView.findViewById(R.id.button_register);
             registerButton.setOnClickListener(new View.OnClickListener() {
